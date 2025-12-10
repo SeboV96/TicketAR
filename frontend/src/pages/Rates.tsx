@@ -65,14 +65,15 @@ export default function Rates() {
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-bold mb-4">Nueva Tarifa</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Nombre
                 </label>
                 <input
                   {...register('nombre', { required: 'Nombre es requerido' })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Ej: Por hora"
                 />
               </div>
               <div>
@@ -81,11 +82,9 @@ export default function Rates() {
                 </label>
                 <select
                   {...register('tipo', { required: 'Tipo es requerido' })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="POR_HORA">Por Hora</option>
-                  <option value="POR_FRACCION">Por Fracción</option>
-                  <option value="POR_ESTADIA">Por Estadía</option>
                   <option value="MENSUAL">Mensual</option>
                 </select>
               </div>
@@ -93,47 +92,21 @@ export default function Rates() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Precio
                 </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  {...register('precio', { required: 'Precio es requerido', valueAsNumber: true })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Hora Inicio (0-23)
-                </label>
-                <input
-                  type="number"
-                  {...register('horaInicio', { valueAsNumber: true })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Hora Fin (0-23)
-                </label>
-                <input
-                  type="number"
-                  {...register('horaFin', { valueAsNumber: true })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Día Semana (0=Domingo, 6=Sábado)
-                </label>
-                <input
-                  type="number"
-                  {...register('diaSemana', { valueAsNumber: true })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                />
+                <div className="relative">
+                  <span className="absolute left-3 top-2 text-gray-500">$</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    {...register('precio', { required: 'Precio es requerido', valueAsNumber: true, min: 0 })}
+                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="1000"
+                  />
+                </div>
               </div>
             </div>
             <button
               type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
             >
               Crear Tarifa
             </button>
@@ -149,7 +122,7 @@ export default function Rates() {
                 <div>
                   <p className="text-lg font-medium text-gray-900">{rate.nombre}</p>
                   <p className="text-sm text-gray-500">
-                    Tipo: {rate.tipo} • Precio: ${rate.precio}
+                    Tipo: {rate.tipo === 'POR_HORA' ? 'Por Hora' : 'Mensual'} • Precio: ${rate.precio.toLocaleString()}
                   </p>
                 </div>
                 <button

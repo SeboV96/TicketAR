@@ -33,36 +33,16 @@ export class RatesService {
   }
 
   async findApplicableRate(fecha: Date, tipoVehiculo?: string) {
-    const diaSemana = fecha.getDay();
-    const hora = fecha.getHours();
-
-    const rates = await this.prisma.rate.findMany({
+    // Buscar tarifa por hora activa (solo hay una tarifa por hora)
+    const rate = await this.prisma.rate.findFirst({
       where: {
         activo: true,
-        AND: [
-          {
-            OR: [
-              { diaSemana: null },
-              { diaSemana },
-            ],
-          },
-          {
-            OR: [
-              { horaInicio: null, horaFin: null },
-              {
-                AND: [
-                  { horaInicio: { lte: hora } },
-                  { horaFin: { gte: hora } },
-                ],
-              },
-            ],
-          },
-        ],
+        tipo: 'POR_HORA',
       },
-      orderBy: { precio: 'asc' },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return rates[0] || null;
+    return rate || null;
   }
 
   async update(id: string, updateRateDto: UpdateRateDto) {

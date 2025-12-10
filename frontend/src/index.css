@@ -1,3 +1,5 @@
+@import 'sweetalert2/dist/sweetalert2.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,5 +11,74 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animaciones para SweetAlert2 */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.animate-fade-out {
+  animation: fade-out 0.15s ease-in;
+}
+
+/* Estilos personalizados para SweetAlert2 */
+.swal2-popup {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.swal2-title {
+  color: #1f2937; /* gray-800 */
+  font-weight: 700;
+}
+
+.swal2-content {
+  color: #4b5563; /* gray-600 */
+}
+
+.swal2-confirm {
+  background-color: #2563eb !important; /* blue-600 */
+  color: white !important;
+  border: none !important;
+  transition: background-color 0.2s;
+}
+
+.swal2-confirm:hover {
+  background-color: #1d4ed8 !important; /* blue-700 */
+}
+
+.swal2-cancel {
+  background-color: #6b7280 !important; /* gray-500 */
+  color: white !important;
+  border: none !important;
+  transition: background-color 0.2s;
+}
+
+.swal2-cancel:hover {
+  background-color: #4b5563 !important; /* gray-600 */
 }
 

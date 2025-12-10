@@ -28,6 +28,11 @@ export class VehiclesController {
     return this.vehiclesService.findAll();
   }
 
+  @Get('numero/:numero')
+  findByNumero(@Param('numero') numero: string) {
+    return this.vehiclesService.findByNumeroPatente(parseInt(numero));
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.vehiclesService.findOne(id);

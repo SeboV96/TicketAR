@@ -17,7 +17,7 @@ export class TicketsService {
     private realtimeGateway: RealtimeGateway,
   ) {}
 
-  async create(createTicketDto: CreateTicketDto) {
+  async create(createTicketDto: CreateTicketDto & { operadorId: string }) {
     // Verificar si el vehículo ya está dentro
     const activeTicket = await this.prisma.ticket.findFirst({
       where: {
@@ -127,7 +127,7 @@ export class TicketsService {
     return ticket;
   }
 
-  async exit(exitTicketDto: ExitTicketDto) {
+  async exit(exitTicketDto: ExitTicketDto & { operadorId: string }) {
     const ticket = await this.prisma.ticket.findFirst({
       where: {
         vehicleId: exitTicketDto.vehicleId,
@@ -216,16 +216,15 @@ export class TicketsService {
   private calculateAmount(rate: any, minutes: number, hours: number): number {
     switch (rate.tipo) {
       case RateType.POR_HORA:
+        // Calcular por horas completas (redondeo hacia arriba)
         return Math.ceil(hours) * rate.precio;
 
-      case RateType.POR_FRACCION:
-        const fracciones = Math.ceil(minutes / (rate.fraccionMin || 15));
-        return fracciones * rate.precio;
-
-      case RateType.POR_ESTADIA:
-        return rate.precio;
+      case RateType.MENSUAL:
+        // Los abonos mensuales ya están pagados
+        return 0;
 
       default:
+        // Por defecto, calcular por hora
         return Math.ceil(hours) * rate.precio;
     }
   }

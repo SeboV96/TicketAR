@@ -3,25 +3,15 @@ import api from './api';
 export interface Rate {
   id: string;
   nombre: string;
-  tipo: 'POR_HORA' | 'POR_FRACCION' | 'POR_ESTADIA' | 'MENSUAL';
+  tipo: 'POR_HORA' | 'MENSUAL';
   precio: number;
-  fraccionMin?: number;
-  fraccionMax?: number;
-  horaInicio?: number;
-  horaFin?: number;
-  diaSemana?: number;
   activo: boolean;
 }
 
 export interface CreateRateDto {
   nombre: string;
-  tipo: 'POR_HORA' | 'POR_FRACCION' | 'POR_ESTADIA' | 'MENSUAL';
+  tipo: 'POR_HORA' | 'MENSUAL';
   precio: number;
-  fraccionMin?: number;
-  fraccionMax?: number;
-  horaInicio?: number;
-  horaFin?: number;
-  diaSemana?: number;
 }
 
 export const ratesService = {

@@ -1,11 +1,10 @@
-import { IsString, IsEnum } from 'class-validator';
+import { IsString, IsEnum, IsNumber } from 'class-validator';
 import { VehicleType } from '@prisma/client';
 
 export class CreateVehicleDto {
-  @IsString()
-  patente: string;
+  @IsNumber()
+  numeroPatente: number;
 
   @IsEnum(VehicleType)
   tipo: VehicleType;
 }
-

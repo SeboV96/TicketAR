@@ -54,17 +54,21 @@ export default function VehiclesInside() {
                       {ticket.patente}
                     </p>
                     <p className="text-sm text-gray-500">
-                      {ticket.tipoVehiculo} • Ingreso: {dayjs(ticket.fechaIngreso).format('DD/MM/YYYY HH:mm')}
+                      {ticket.tipoVehiculo}
+                    </p>
+                    <p className="text-sm font-semibold text-blue-600 mt-1">
+                      Hora de Ingreso: {dayjs(ticket.fechaIngreso).format('HH:mm')}
                     </p>
                     <p className="text-sm text-gray-500">
-                      Operador: {ticket.userIngreso.name}
+                      Fecha: {dayjs(ticket.fechaIngreso).format('DD/MM/YYYY')} • Operador: {ticket.userIngreso.name}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-gray-500">
-                      Tiempo: {dayjs().diff(dayjs(ticket.fechaIngreso), 'hour')}h{' '}
+                    <p className="text-lg font-bold text-gray-900">
+                      {dayjs().diff(dayjs(ticket.fechaIngreso), 'hour')}h{' '}
                       {dayjs().diff(dayjs(ticket.fechaIngreso), 'minute') % 60}m
                     </p>
+                    <p className="text-xs text-gray-500">Tiempo estacionado</p>
                   </div>
                 </div>
               </li>

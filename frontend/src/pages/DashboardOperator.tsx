@@ -168,7 +168,8 @@ export default function DashboardOperator() {
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
                         ticket.tipoVehiculo === 'AUTO' ? 'bg-blue-500' :
                         ticket.tipoVehiculo === 'MOTO' ? 'bg-green-500' :
-                        ticket.tipoVehiculo === 'CAMION' ? 'bg-orange-500' : 'bg-gray-500'
+                        ticket.tipoVehiculo === 'CAMIONETA' ? 'bg-orange-500' :
+                        ticket.tipoVehiculo === 'TRAFIC' ? 'bg-purple-500' : 'bg-gray-500'
                       }`}>
                         {ticket.patente.substring(0, 2)}
                       </div>
@@ -177,7 +178,10 @@ export default function DashboardOperator() {
                           {ticket.patente}
                         </p>
                         <p className="text-sm text-gray-500">
-                          {ticket.tipoVehiculo} • Ingreso: {dayjs(ticket.fechaIngreso).format('HH:mm')}
+                          {ticket.tipoVehiculo}
+                        </p>
+                        <p className="text-sm font-semibold text-blue-600">
+                          Ingreso: {dayjs(ticket.fechaIngreso).format('HH:mm')}
                         </p>
                       </div>
                     </div>

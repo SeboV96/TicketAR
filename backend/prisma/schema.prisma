@@ -17,9 +17,9 @@ enum UserRole {
 
 enum VehicleType {
   AUTO
+  CAMIONETA
   MOTO
-  CAMION
-  OTRO
+  TRAFIC
 }
 
 enum RateType {

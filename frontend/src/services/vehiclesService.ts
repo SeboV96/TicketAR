@@ -3,13 +3,13 @@ import api from './api';
 export interface Vehicle {
   id: string;
   patente: string;
-  tipo: 'AUTO' | 'MOTO' | 'CAMION' | 'OTRO';
+  tipo: 'AUTO' | 'CAMIONETA' | 'MOTO' | 'TRAFIC';
   createdAt: string;
 }
 
 export interface CreateVehicleDto {
-  patente: string;
-  tipo: 'AUTO' | 'MOTO' | 'CAMION' | 'OTRO';
+  numeroPatente: number;
+  tipo: 'AUTO' | 'CAMIONETA' | 'MOTO' | 'TRAFIC';
 }
 
 export const vehiclesService = {
@@ -20,6 +20,14 @@ export const vehiclesService = {
   create: async (data: CreateVehicleDto): Promise<Vehicle> => {
     const response = await api.post<Vehicle>('/vehicles', data);
     return response.data;
+  },
+  findByNumero: async (numero: number): Promise<Vehicle | null> => {
+    try {
+      const response = await api.get<Vehicle>(`/vehicles/numero/${numero}`);
+      return response.data;
+    } catch {
+      return null;
+    }
   },
   findByPatente: async (patente: string): Promise<Vehicle | null> => {
     try {
